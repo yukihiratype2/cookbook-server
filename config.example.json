@@ -1,0 +1,11 @@
+{
+  "server": {
+    "addr": "0.0.0.0",
+    "port": 8002,
+    "secret": "averylongsecret"
+  },
+  "db": {
+    "addr": "mongodb://user:<password>@localhost:8001",
+    "database": "cookbook-server"
+  }
+}
