@@ -56,6 +56,6 @@ func (obs *OBS) Upload(f *os.File) error {
 	return err
 }
 
-func (obs *OBS) GenPresign() {
-
+func (obs *OBS) GenPresign() int {
+	return 1
 }
