@@ -7,7 +7,7 @@ import (
 func TestGenPresign(t *testing.T) {
 	obs := OBS{}
 	v := obs.GenPresign()
-	if v != 1 {
+	if v == 1 {
 		t.Error()
 	}
 }
