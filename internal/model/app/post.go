@@ -11,7 +11,7 @@ type Post struct {
 	PostInfo       PostInfo           `bson:"post_info"`
 	Rate           [5]int             `bson:"rate"`
 	DefaultFormula int                `bson:"default_formula"`
-	Formulas       []Formula          `bson:"formulas"`
+	Formula        []Formula          `bson:"formula"`
 	Cuisine        PostCuisine        `bson:"cuisine"`
 	Private        bool               `bson:"private"`
 }

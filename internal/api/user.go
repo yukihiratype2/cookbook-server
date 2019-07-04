@@ -10,6 +10,7 @@ import (
 	apim "github.com/yukihiratype2/cookbook-server/internal/model/api"
 	m "github.com/yukihiratype2/cookbook-server/internal/model/app"
 	userservice "github.com/yukihiratype2/cookbook-server/internal/service/user"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"gopkg.in/go-playground/validator.v9"
 )
 
@@ -36,6 +37,7 @@ func (uh *userHandler) Create(c echo.Context) (err error) {
 		return
 	}
 	uh.userService.Create(&m.User{
+		ID:       primitive.NewObjectID(),
 		Email:    u.Email,
 		Password: u.Password,
 		UserInfo: m.UserInfo{

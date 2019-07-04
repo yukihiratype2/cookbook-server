@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"github.com/spf13/viper"
 	m "github.com/yukihiratype2/cookbook-server/internal/model/app"
 )
@@ -9,8 +8,6 @@ import (
 // LoadConfig func
 func LoadConfig() m.Config {
 	c, _ := getConfigFromFile()
-	fmt.Println(c)
-
 	return c
 }
 
