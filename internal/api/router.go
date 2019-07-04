@@ -12,8 +12,11 @@ func mountRoutes(e *echo.Echo, srv *service.Service, c m.ConfigServer) {
 	userGroup := v1.Group("/user")
 	userHandler := newUserHandler(srv.UserService, c)
 	authGroup := v1.Group("/auth")
+	postGroup := v1.Group("/post")
 	mountUserGroup(userGroup, userHandler)
 	mountAuthGroup(authGroup, userHandler)
+	postHandler := newPostHandler()
+	mountPostGroup(postGroup, postHandler)
 }
 
 func mountUserGroup(userGroup *echo.Group, uh *userHandler) {
@@ -24,4 +27,8 @@ func mountUserGroup(userGroup *echo.Group, uh *userHandler) {
 
 func mountAuthGroup(authGroup *echo.Group, uh *userHandler) {
 	authGroup.POST("/login", uh.Authentication)
+}
+
+func mountPostGroup(postGroup *echo.Group, ph *postHandler) {
+
 }

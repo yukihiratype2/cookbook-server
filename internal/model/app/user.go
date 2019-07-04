@@ -6,6 +6,7 @@ import (
 
 // User struct
 type User struct {
+	ID         string     `bson:"_id"`
 	Email      string     `bson:"email"`
 	Password   string     `bson:"password,omitempty"`
 	UserInfo   UserInfo   `bson:"user_info,omitempty"`

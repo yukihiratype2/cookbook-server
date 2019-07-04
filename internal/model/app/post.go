@@ -1,17 +1,19 @@
 package model
 
 import (
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 )
 
 type Post struct {
-	Title          string      `bson:"title"`
-	PostInfo       PostInfo    `bson:"post_info"`
-	Rate           [5]int      `bson:"rate"`
-	DefaultFormula int         `bson:"default_formula"`
-	Formulas       []Formula   `bson:"formulas"`
-	Cuisine        PostCuisine `bson:"cuisine"`
-	Private        bool        `bson:"private"`
+	ID             primitive.ObjectID `bson:"_id"`
+	Title          string             `bson:"title"`
+	PostInfo       PostInfo           `bson:"post_info"`
+	Rate           [5]int             `bson:"rate"`
+	DefaultFormula int                `bson:"default_formula"`
+	Formulas       []Formula          `bson:"formulas"`
+	Cuisine        PostCuisine        `bson:"cuisine"`
+	Private        bool               `bson:"private"`
 }
 
 type PostCuisine struct{}
@@ -47,10 +49,14 @@ type FormulaMaterial struct {
 }
 
 type FormulaStep struct {
-	Describe string `bson:"describe"`
-	Example  string `bson:"example"`
+	Describe string    `bson:"describe"`
+	Example  PostAsset `bson:"example"`
 }
 
 type FormulaMedia struct {
-	MediaList []string
+	Picture []PostAsset `bson:"picture"`
+}
+
+type PostAsset struct {
+	AssetURL string `bson:"asset_url"`
 }
