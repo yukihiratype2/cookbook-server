@@ -23,11 +23,16 @@ func (uh *userHandler) Authentication(c echo.Context) (err error) {
 		Password: authParams.Password,
 	})
 	if err != nil {
+		c.JSON(http.StatusUnauthorized, echo.Map{"message": "email or password invalid"})
 		return
 	}
 	token, err := uh.generateToken(authParams)
 
-	return c.JSON(http.StatusOK, echo.Map{"token": token})
+	if err != nil {
+		return
+	}
+	c.JSON(http.StatusOK, echo.Map{"token": token})
+	return
 }
 
 func (uh *userHandler) generateToken(authParams *apim.AuthParams) (t string, err error) {

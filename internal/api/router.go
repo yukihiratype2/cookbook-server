@@ -28,7 +28,3 @@ func mountUserGroup(userGroup *echo.Group, uh *userHandler) {
 func mountAuthGroup(authGroup *echo.Group, uh *userHandler) {
 	authGroup.POST("/login", uh.Authentication)
 }
-
-func mountPostGroup(postGroup *echo.Group, ph *postHandler) {
-	postGroup.POST("", ph.Create)
-}

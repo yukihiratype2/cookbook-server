@@ -41,3 +41,7 @@ func (ph *postHandler) Create(c echo.Context) (err error) {
 	c.String(http.StatusOK, "post")
 	return
 }
+
+func mountPostGroup(postGroup *echo.Group, ph *postHandler) {
+	postGroup.POST("", ph.Create)
+}

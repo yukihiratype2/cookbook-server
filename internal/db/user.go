@@ -31,6 +31,17 @@ func (uh UserHandler) Create(newUser *m.User) (err error) {
 	return
 }
 
+func (uh UserHandler) Update(userToUpdate *m.User) (err error) {
+	return
+}
+
+func (uh UserHandler) Delete(userToDelete *m.User) (err error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	_, err = uh.UserCollection.DeleteOne(ctx, userToDelete)
+	return
+}
+
 func (uh UserHandler) FindByEmail(email string) (findedUser m.User, err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()

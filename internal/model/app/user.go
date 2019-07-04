@@ -9,17 +9,18 @@ import (
 type User struct {
 	ID         primitive.ObjectID `bson:"_id"`
 	Email      string             `bson:"email"`
-	Password   string             `bson:"password,omitempty"`
-	UserInfo   UserInfo           `bson:"user_info,omitempty"`
-	UserStatus UserStatus         `bson:"user_status,omitempty"`
+	Password   string             `bson:"password"`
+	Rule       []string           `bson:"rule"`
+	UserInfo   UserInfo           `bson:"user_info"`
+	UserStatus UserStatus         `bson:"user_status"`
 }
 
 // UserInfo struct
 type UserInfo struct {
-	UserName    string    `bson:"user_name,omitempty"`
-	CreatedAt   time.Time `bson:"created_at,omitempty"`
-	LastLogin   time.Time `bson:"last_login,omitempty"`
-	LastLoginAt string    `bson:"last_login_at,omitempty"`
+	UserName    string    `bson:"user_name"`
+	CreatedAt   time.Time `bson:"created_at"`
+	LastLogin   time.Time `bson:"last_login"`
+	LastLoginAt string    `bson:"last_login_at"`
 }
 
 // UserStatus struct

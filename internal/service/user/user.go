@@ -28,6 +28,18 @@ func (us *UserService) Authentication(authUser *m.User) (err error) {
 		return
 	}
 	err = verifyPassword(findedUser.Password, authUser.Password)
+	if err != nil {
+		return
+	}
+
+	return
+}
+
+func (us *UserService) Update(userToUpdate *m.User) (err error) {
+	return
+}
+
+func (us *UserService) Delete(userToDelete *m.User) (err error) {
 	return
 }
 
