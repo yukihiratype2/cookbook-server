@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"fmt"
 	m "github.com/yukihiratype2/cookbook-server/internal/model/app"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -42,9 +41,5 @@ func (ph *PostHandler) Update(PostID primitive.ObjectID, newPost *bson.D) (err e
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	_, err = ph.PostCollection.UpdateOne(ctx, &bson.M{"_id": PostID}, newPost)
-	if err != nil {
-		fmt.Println(err)
-
-	}
 	return
 }

@@ -13,7 +13,7 @@ type Post struct {
 	DefaultFormula int                `json:"default_formula" bson:"default_formula"`
 	Formula        []Formula          `json:"formula" bson:"formula"`
 	Cuisine        PostCuisine        `json:"cuisine" bson:"cuisine"`
-	Private        bool               `json:"private" bson:"private"`
+	Private        bool               `json:"-" bson:"private"`
 	Viewed         int                `json:"viewed" bson:"viewed"`
 }
 
