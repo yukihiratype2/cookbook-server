@@ -6,57 +6,57 @@ import (
 )
 
 type Post struct {
-	ID             primitive.ObjectID `bson:"_id"`
-	Title          string             `bson:"title"`
-	PostInfo       PostInfo           `bson:"post_info"`
-	Rate           [5]int             `bson:"rate"`
-	DefaultFormula int                `bson:"default_formula"`
-	Formula        []Formula          `bson:"formula"`
-	Cuisine        PostCuisine        `bson:"cuisine"`
-	Private        bool               `bson:"private"`
+	ID             primitive.ObjectID `json:"_id" bson:"_id"`
+	Title          string             `json:"titlel" bson:"title"`
+	PostInfo       PostInfo           `json:"post_info" bson:"post_info"`
+	Rate           [5]int             `json:"rate" bson:"rate"`
+	DefaultFormula int                `json:"default_formula" bson:"default_formula"`
+	Formula        []Formula          `json:"formula" bson:"formula"`
+	Cuisine        PostCuisine        `json:"cuisine" bson:"cuisine"`
+	Private        bool               `json:"private" bson:"private"`
 }
 
 type PostCuisine struct{}
 
 type PostInfo struct {
-	CreatedAt  time.Time `bson:"create_at"`
-	LastModify time.Time `bons:"last_modify"`
+	CreatedAt  time.Time `json:"create_at" bson:"create_at"`
+	LastModify time.Time `json:"last_modify" bons:"last_modify"`
 }
 
 type Formula struct {
-	Media           FormulaMedia   `bson:"media"`
-	Describe        string         `bson:"describe"`
-	FormulaContent  FormulaContent `bson:"formula_content"`
-	FormulaTitle    string         `bson:"formula_title"`
-	PostFormulaInfo FormulaInfo    `bson:"formula_info"`
+	Media           FormulaMedia   `json:"medial" bson:"media"`
+	Describe        string         `json:"describe" bson:"describe"`
+	FormulaContent  FormulaContent `json:"formula_content" bson:"formula_content"`
+	FormulaTitle    string         `json:"formula_title" bson:"formula_title"`
+	PostFormulaInfo FormulaInfo    `json:"formula_info" bson:"formula_info"`
 }
 
 type FormulaInfo struct {
-	CreatedAt  time.Time `bson:"create_at"`
-	LastModify time.Time `bons:"last_modify"`
+	CreatedAt  time.Time `json:"create_at" bson:"create_at"`
+	LastModify time.Time `json:"last_modify" bons:"last_modify"`
 }
 
 type FormulaContent struct {
-	Material []FormulaMaterial `bson:"material"`
-	Step     []FormulaStep     `bson:"step"`
-	Note     string            `bson:"note"`
+	Material []FormulaMaterial `json:"material" bson:"material"`
+	Step     []FormulaStep     `json:"step" bson:"step"`
+	Note     string            `json:"note" bson:"note"`
 }
 
 type FormulaMaterial struct {
-	Name  string `bson:"name"`
-	Usage string `bson:"usage"`
-	Note  string `bson:"note"`
+	Name  string `json:"name" bson:"name"`
+	Usage string `json:"usage" bson:"usage"`
+	Note  string `json:"note" bson:"note"`
 }
 
 type FormulaStep struct {
-	Describe string    `bson:"describe"`
-	Example  PostAsset `bson:"example"`
+	Describe string    `json:"describe" bson:"describe"`
+	Example  PostAsset `json:"example" bson:"example"`
 }
 
 type FormulaMedia struct {
-	Picture []PostAsset `bson:"picture"`
+	Picture []PostAsset `json:"picture" bson:"picture"`
 }
 
 type PostAsset struct {
-	AssetURL string `bson:"asset_url"`
+	AssetURL string `json:"asset_url" bson:"asset_url"`
 }

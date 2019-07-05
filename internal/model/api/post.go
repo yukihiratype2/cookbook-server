@@ -1,12 +1,14 @@
 package model
 
-import ()
+import (
+	m "github.com/yukihiratype2/cookbook-server/internal/model/app"
+)
 
 type Post struct {
 	Title          string      `json:"title"`
 	Rate           [5]int      `json:"rate"`
 	DefaultFormula int         `json:"default_formula"`
-	Formula        []Formula   `json:"formula"`
+	Formula        []m.Formula `json:"formula"`
 	Cuisine        PostCuisine `json:"cuisine"`
 }
 
@@ -19,18 +21,13 @@ type Formula struct {
 }
 
 type FormulaContent struct {
-	Note     string            `json:"note"`
-	Material []FormulaMaterial `json:"material"`
-	Step     FormulaStep       `json:"step"`
+	Note     string              `json:"note"`
+	Material []m.FormulaMaterial `json:"material"`
+	Step     []m.FormulaStep     `json:"step"`
 }
 
 type FormulaStep struct {
 	Describe string `json:"describe"`
-}
-type FormulaMaterial struct {
-	Name  string `json:"name"`
-	Usage string `json:"usage"`
-	Note  string `json:"note"`
 }
 
 type CreatePostParams struct {

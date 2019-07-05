@@ -42,6 +42,18 @@ func (ph *postHandler) Create(c echo.Context) (err error) {
 	return
 }
 
+func (ph *postHandler) Get(c echo.Context) (err error) {
+	postID := c.Param("postID")
+	findedPost, err := ph.postService.GetPostByID(postID)
+
+	if err != nil {
+		return
+	}
+	c.JSON(http.StatusOK, &findedPost)
+	return
+}
+
 func mountPostGroup(postGroup *echo.Group, ph *postHandler) {
 	postGroup.POST("", ph.Create)
+	postGroup.GET("/:postID", ph.Get)
 }
