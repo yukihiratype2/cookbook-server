@@ -12,6 +12,10 @@ type Post struct {
 	Cuisine        PostCuisine `json:"cuisine"`
 }
 
+type PostRate struct {
+	Rate int `json:"rate"`
+}
+
 type PostCuisine struct{}
 
 type Formula struct {

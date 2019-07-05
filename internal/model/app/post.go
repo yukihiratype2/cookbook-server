@@ -9,12 +9,15 @@ type Post struct {
 	ID             primitive.ObjectID `json:"_id" bson:"_id"`
 	Title          string             `json:"titlel" bson:"title"`
 	PostInfo       PostInfo           `json:"post_info" bson:"post_info"`
-	Rate           [5]int             `json:"rate" bson:"rate"`
+	Rate           PostRate           `json:"rate" bson:"rate"`
 	DefaultFormula int                `json:"default_formula" bson:"default_formula"`
 	Formula        []Formula          `json:"formula" bson:"formula"`
 	Cuisine        PostCuisine        `json:"cuisine" bson:"cuisine"`
 	Private        bool               `json:"private" bson:"private"`
+	Viewed         int                `json:"viewed" bson:"viewed"`
 }
+
+type PostRate [5]int
 
 type PostCuisine struct{}
 

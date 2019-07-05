@@ -56,4 +56,5 @@ func (ph *postHandler) Get(c echo.Context) (err error) {
 func mountPostGroup(postGroup *echo.Group, ph *postHandler) {
 	postGroup.POST("", ph.Create)
 	postGroup.GET("/:postID", ph.Get)
+	postGroup.POST("/:postID/rate", ph.Rate)
 }
