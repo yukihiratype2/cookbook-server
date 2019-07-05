@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	// "fmt"
 	m "github.com/yukihiratype2/cookbook-server/internal/model/app"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -32,6 +33,15 @@ func (uh UserHandler) Create(newUser *m.User) (err error) {
 }
 
 func (uh UserHandler) Update(userToUpdate *m.User) (err error) {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	_, err = uh.UserCollection.UpdateOne(ctx, bson.D{
+		{"_id", userToUpdate.ID},
+	}, bson.D{
+		{"$set", userToUpdate},
+	})
+
 	return
 }
 

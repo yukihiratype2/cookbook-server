@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 	apim "github.com/yukihiratype2/cookbook-server/internal/model/api"
@@ -21,16 +20,20 @@ func (uh *userHandler) Authentication(c echo.Context) (err error) {
 	err = uh.userService.Authentication(&m.User{
 		Email:    authParams.Email,
 		Password: authParams.Password,
+		UserInfo: m.UserInfo{
+			LastLogin:   time.Now(),
+			LastLoginAt: c.RealIP(),
+		},
 	})
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, echo.Map{"message": "email or password invalid"})
 		return
 	}
 	token, err := uh.generateToken(authParams)
-
 	if err != nil {
 		return
 	}
+
 	c.JSON(http.StatusOK, echo.Map{"token": token})
 	return
 }
@@ -48,8 +51,6 @@ func (uh *userHandler) generateToken(authParams *apim.AuthParams) (t string, err
 }
 
 func fillClams(claims jwt.MapClaims, user m.User) {
-	fmt.Println(user)
-
 	claims["user"] = apim.JWTUserParams{
 		User: apim.User{
 			Email: user.Email,

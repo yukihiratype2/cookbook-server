@@ -31,11 +31,14 @@ func (us *UserService) Authentication(authUser *m.User) (err error) {
 	if err != nil {
 		return
 	}
-
+	findedUser.UserInfo.LastLogin = authUser.UserInfo.LastLogin
+	findedUser.UserInfo.LastLoginAt = authUser.UserInfo.LastLoginAt
+	err = us.Update(&findedUser)
 	return
 }
 
 func (us *UserService) Update(userToUpdate *m.User) (err error) {
+	err = us.UserDB.Update(userToUpdate)
 	return
 }
 

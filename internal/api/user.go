@@ -46,6 +46,7 @@ func (uh *userHandler) Create(c echo.Context) (err error) {
 			LastLogin:   time.Now(),
 			LastLoginAt: c.RealIP(),
 		},
+		Role: []string{"USER"},
 	})
 	return c.JSON(http.StatusOK, echo.Map{"message": "Successful create user"})
 }
