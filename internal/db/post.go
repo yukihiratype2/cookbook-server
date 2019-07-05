@@ -9,6 +9,10 @@ import (
 	"time"
 )
 
+type id struct {
+	ID primitive.ObjectID `bson:"_id"`
+}
+
 // PostHandler struct
 type PostHandler struct {
 	PostCollection *mongo.Collection
@@ -40,6 +44,6 @@ func (ph *PostHandler) Get(postToFind *m.Post) (findedPost *m.Post, err error) {
 func (ph *PostHandler) Update(PostID primitive.ObjectID, newPost *bson.D) (err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	_, err = ph.PostCollection.UpdateOne(ctx, &bson.M{"_id": PostID}, newPost)
+	_, err = ph.PostCollection.UpdateOne(ctx, &id{ID: PostID}, newPost)
 	return
 }
