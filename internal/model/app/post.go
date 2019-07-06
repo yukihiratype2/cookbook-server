@@ -15,6 +15,7 @@ type Post struct {
 	Cuisine        PostCuisine        `json:"cuisine" bson:"cuisine"`
 	Private        bool               `json:"-" bson:"private"`
 	Viewed         int                `json:"viewed" bson:"viewed"`
+	Author         primitive.ObjectID `json:"author_id" bson:"author_id"`
 }
 
 type PostRate [5]int

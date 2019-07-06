@@ -34,13 +34,14 @@ func jwtMiddleware(token string) echo.MiddlewareFunc {
 	return middleware.JWTWithConfig(jwtConfig)
 }
 
+var whitelist = [...]jwtWhitelist{jwtWhitelist{"/api/v1/auth/login", "POST"}, jwtWhitelist{"/api/v1/user", "POST"}, jwtWhitelist{"/api/v1/user", "GET"}}
+
 func jwtSkipper(c echo.Context) bool {
 	path := jwtWhitelist{
 		c.Path(),
 		c.Request().Method,
 	}
 
-	whitelist := [...]jwtWhitelist{jwtWhitelist{"/api/v1/auth/login", "POST"}, jwtWhitelist{"/api/v1/user", "POST"}}
 	for _, whitepath := range whitelist {
 		if path == whitepath {
 			return true
@@ -53,6 +54,10 @@ func extractJwtPayloadMiddleware() echo.MiddlewareFunc {
 
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) (err error) {
+			// TODO
+			if jwtSkipper(c) {
+				return next(c)
+			}
 			user := c.Get("user").(*jwt.Token)
 			claims := user.Claims.(*jwtCustomClaims)
 			cc := &Context{

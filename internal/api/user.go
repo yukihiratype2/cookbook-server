@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -52,8 +51,8 @@ func (uh *userHandler) Create(c echo.Context) (err error) {
 }
 
 func (uh *userHandler) Get(c echo.Context) (err error) {
-	cc := c.(*Context)
-	fmt.Printf("%+v\n", cc.jwtPaylaod)
+	// cc := c.(*Context)
+	// fmt.Printf("%+v\n", cc.jwtPaylaod)
 
 	// claims := user.Claims.(*jwtCustomClaims)
 

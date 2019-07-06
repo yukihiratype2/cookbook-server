@@ -6,8 +6,6 @@ import (
 	"github.com/labstack/echo/middleware"
 )
 
-var whitelist = [...]string{"/v1/auth/login"}
-
 type customCliams struct {
 	jwt.StandardClaims
 }
