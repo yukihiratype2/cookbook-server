@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
+	// "github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 	apim "github.com/yukihiratype2/cookbook-server/internal/model/api"
 	m "github.com/yukihiratype2/cookbook-server/internal/model/app"
@@ -52,9 +52,10 @@ func (uh *userHandler) Create(c echo.Context) (err error) {
 }
 
 func (uh *userHandler) Get(c echo.Context) (err error) {
-	user := c.Get("user").(*jwt.Token)
-	claims := user.Claims.(*jwtCustomClaims)
-	fmt.Printf("%+v\n", claims)
+	cc := c.(*Context)
+	fmt.Printf("%+v\n", cc.jwtPaylaod)
+
+	// claims := user.Claims.(*jwtCustomClaims)
 
 	c.String(http.StatusOK, "wr")
 	return

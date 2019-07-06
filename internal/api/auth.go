@@ -39,25 +39,26 @@ func (uh *userHandler) Authentication(c echo.Context) (err error) {
 }
 
 func (uh *userHandler) generateToken(authParams *apim.AuthParams) (t string, err error) {
-	token := jwt.New(jwt.SigningMethodHS256)
 	findedUser, err := uh.userService.GetUserByEmail(authParams.Email)
+	claims := fillClams(findedUser)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	if err != nil {
 		return
 	}
-	claims := token.Claims.(jwt.MapClaims)
-	fillClams(claims, findedUser)
 	t, err = token.SignedString(uh.jwtSecret)
 	return
 }
 
-func fillClams(claims jwt.MapClaims, user m.User) {
-	claims["user"] = apim.JWTUserParams{
+func fillClams(user m.User) *jwtCustomClaims {
+	claims := jwtCustomClaims{}
+	claims.User = apim.JWTUserParams{
 		User: apim.User{
 			Email: user.Email,
 		},
 		UserName: user.UserInfo.UserName,
 	}
-	claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
-	claims["iat"] = time.Now().Unix()
-	claims["sub"] = user.Email
+	claims.ExpiresAt = time.Now().Add(time.Hour * 24).Unix()
+	claims.IssuedAt = time.Now().Unix()
+	claims.Subject = user.Email
+	return &claims
 }

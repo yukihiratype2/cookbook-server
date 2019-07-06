@@ -12,7 +12,7 @@ type Post struct {
 	Cuisine        PostCuisine `json:"cuisine"`
 }
 
-type PostRate struct {
+type PostVote struct {
 	Rate int `json:"rate"`
 }
 

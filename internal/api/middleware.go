@@ -22,6 +22,7 @@ func mountMiddlewale(e *echo.Echo, c m.ConfigServer) {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Use(jwtMiddleware(c.Secret))
+	e.Use(extractJwtPayloadMiddleware())
 }
 
 func jwtMiddleware(token string) echo.MiddlewareFunc {
@@ -46,4 +47,20 @@ func jwtSkipper(c echo.Context) bool {
 		}
 	}
 	return false
+}
+
+func extractJwtPayloadMiddleware() echo.MiddlewareFunc {
+
+	return func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) (err error) {
+			user := c.Get("user").(*jwt.Token)
+			claims := user.Claims.(*jwtCustomClaims)
+			cc := &Context{
+				c,
+				claims,
+			}
+			return next(cc)
+		}
+
+	}
 }

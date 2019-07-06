@@ -30,10 +30,14 @@ func (ps *PostService) GetPostByID(postID string) (findedPost *m.Post, err error
 	return ps.PostDB.Get(&postToFind)
 }
 
-func (ps *PostService) RatePost(postID primitive.ObjectID, rate int) (err error) {
+//RatePost accept a int
+func (ps *PostService) RatePost(postID primitive.ObjectID, rate int) (rateAfterVote m.PostRate, err error) {
 	err = ps.PostDB.Update(postID, &bson.D{{"$inc", bson.D{
 		{"rate." + strconv.Itoa(rate), 1},
 	}}})
+	if err != nil {
+		return
+	}
 
 	return
 }

@@ -14,3 +14,8 @@ func Start(c m.ConfigServer, srv *service.Service) {
 	mountRoutes(e, srv, c)
 	e.Logger.Fatal(e.Start(":" + c.ServerPort))
 }
+
+type Context struct {
+	echo.Context
+	jwtPaylaod *jwtCustomClaims
+}
