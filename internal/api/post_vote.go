@@ -5,6 +5,7 @@ import (
 	apim "github.com/yukihiratype2/cookbook-server/internal/model/api"
 	m "github.com/yukihiratype2/cookbook-server/internal/model/app"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"net/http"
 	// m "github.com/yukihiratype2/cookbook-server/internal/model/app"
 )
 
@@ -22,7 +23,12 @@ func (ph *postHandler) Vote(c echo.Context) (err error) {
 		return
 	}
 
-	ph.postService.RatePost(postID, r.Rate)
+	// ph.postService.RatePost(postID, r.Rate)
+	rateAfterVote, err := ph.postService.Vote(postID, r.Rate)
+	if err != nil {
+		return
+	}
+	c.JSON(http.StatusOK, &rateResp{rateAfterVote})
 
 	return
 }
