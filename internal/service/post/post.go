@@ -27,3 +27,7 @@ func (ps *PostService) GetPostByID(postID string) (findedPost *m.Post, err error
 	}
 	return ps.PostDB.Get(&postToFind)
 }
+
+func (ps *PostService) Delete(postID primitive.ObjectID) (err error) {
+	return ps.PostDB.Delete(postID)
+}

@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo"
@@ -15,6 +14,10 @@ type postHandler struct {
 	postService *postservice.PostService
 }
 
+type message struct {
+	Message string `json:"message"`
+}
+
 func newPostHandler(ps *postservice.PostService) *postHandler {
 	ph := postHandler{}
 	ph.postService = ps
@@ -26,9 +29,6 @@ func (ph *postHandler) Create(c echo.Context) (err error) {
 	if err = c.Bind(p); err != nil {
 		return
 	}
-
-	fmt.Printf("%+v\n", p)
-
 	ph.postService.Create(&m.Post{
 		// TODO fix pointer
 		ID:    primitive.NewObjectID(),
@@ -53,8 +53,22 @@ func (ph *postHandler) Get(c echo.Context) (err error) {
 	return
 }
 
+func (ph *postHandler) Delete(c echo.Context) (err error) {
+	postID, err := primitive.ObjectIDFromHex(c.Param("postID"))
+	if err != nil {
+		return
+	}
+	err = ph.postService.Delete(postID)
+	if err != nil {
+		return
+	}
+	c.JSON(http.StatusOK, &message{"Delete Success"})
+	return
+}
+
 func mountPostGroup(postGroup *echo.Group, ph *postHandler) {
 	postGroup.POST("", ph.Create)
 	postGroup.GET("/:postID", ph.Get)
-	postGroup.POST("/:postID/vote", ph.Vote)
+	postGroup.DELETE("/:postID", ph.Delete)
+	postGroup.PATCH("/:postID/vote", ph.Vote)
 }

@@ -41,6 +41,14 @@ func (ph *PostHandler) Get(postToFind *m.Post) (findedPost *m.Post, err error) {
 	return
 }
 
+func (ph *PostHandler) Delete(postID primitive.ObjectID) (err error) {
+	// TODO
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	_, err = ph.PostCollection.DeleteOne(ctx, &id{ID: postID})
+	return
+}
+
 func (ph *PostHandler) Update(PostID primitive.ObjectID, newPost *bson.D) (err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
