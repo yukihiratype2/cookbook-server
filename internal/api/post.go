@@ -6,12 +6,14 @@ import (
 	"github.com/labstack/echo"
 	apim "github.com/yukihiratype2/cookbook-server/internal/model/api"
 	m "github.com/yukihiratype2/cookbook-server/internal/model/app"
+	"github.com/yukihiratype2/cookbook-server/internal/obs"
 	postservice "github.com/yukihiratype2/cookbook-server/internal/service/post"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type postHandler struct {
 	postService *postservice.PostService
+	obs         *obs.OBS
 }
 
 type message struct {
@@ -21,6 +23,7 @@ type message struct {
 func newPostHandler(ps *postservice.PostService) *postHandler {
 	ph := postHandler{}
 	ph.postService = ps
+	ph.obs = obs.New()
 	return &ph
 }
 
@@ -38,7 +41,7 @@ func (ph *postHandler) Create(c echo.Context) (err error) {
 			Describe:     p.Formula[0].Describe,
 		}},
 	})
-	c.String(http.StatusOK, "post")
+	c.String(http.StatusCreated, "post")
 	return
 }
 
@@ -71,4 +74,5 @@ func mountPostGroup(postGroup *echo.Group, ph *postHandler) {
 	postGroup.GET("/:postID", ph.Get)
 	postGroup.DELETE("/:postID", ph.Delete)
 	postGroup.PATCH("/:postID/vote", ph.Vote)
+	postGroup.PUT("/:postID/asset", ph.UploadAsset)
 }

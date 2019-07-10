@@ -19,7 +19,6 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/yukihiratype2/cookbook-server/internal/api"
 	"github.com/yukihiratype2/cookbook-server/internal/db"
-	"github.com/yukihiratype2/cookbook-server/internal/obs"
 	"github.com/yukihiratype2/cookbook-server/internal/service"
 	"github.com/yukihiratype2/cookbook-server/internal/util"
 )
@@ -31,7 +30,6 @@ var startCmd = &cobra.Command{
 	Long:  `Start server`,
 	Run: func(cmd *cobra.Command, args []string) {
 		c := config.LoadConfig()
-		obs.New(c.OBS)
 		s := service.New(db.New(c.DB))
 		api.Start(c.Server, s)
 	},

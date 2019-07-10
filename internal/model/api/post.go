@@ -37,3 +37,7 @@ type FormulaStep struct {
 type CreatePostParams struct {
 	Post
 }
+
+type PostAssetParams struct {
+	SHA2 string `json:"SHA2"`
+}

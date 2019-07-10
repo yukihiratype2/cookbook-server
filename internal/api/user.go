@@ -47,7 +47,7 @@ func (uh *userHandler) Create(c echo.Context) (err error) {
 		},
 		Role: []string{"USER"},
 	})
-	return c.JSON(http.StatusOK, echo.Map{"message": "Successful create user"})
+	return c.JSON(http.StatusCreated, echo.Map{"message": "Successful create user"})
 }
 
 func (uh *userHandler) Get(c echo.Context) (err error) {
